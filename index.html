@@ -3,1099 +3,140 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Isomera - AI Computational Chemist</title>
-    <meta name="description" content="Isomera: AI-powered computational chemist for next-generation drug discovery. Using fractal-inspired molecular modeling and advanced AI to revolutionize pharmaceutical research.">
-    
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --primary-color: #00a8e8;
-            --secondary-color: #007ea7;
-            --accent-color: #003459;
-            --text-primary: #1a1a2e;
-            --text-secondary: #4a5568;
-            --text-light: #718096;
-            --bg-primary: #ffffff;
-            --bg-secondary: #f7fafc;
-            --bg-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            line-height: 1.6;
-            color: var(--text-primary);
-            background: var(--bg-primary);
-            overflow-x: hidden;
-        }
-
-        /* Navigation */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-            border-bottom: 1px solid rgba(0, 168, 232, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .logo {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .logo:hover {
-            color: var(--secondary-color);
-        }
-
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-weight: 400;
-            font-size: 0.95rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary-color);
-        }
-
-        .nav-links a.active {
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-
-        .mobile-menu {
-            display: none;
-            color: var(--text-primary);
-            font-size: 1.3rem;
-            cursor: pointer;
-            border: none;
-            background: none;
-        }
-
-        /* Hero Section with Fractal Background */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #f7fafc 0%, #edf2f7 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .fractal-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0.08;
-            z-index: 1;
-        }
-
-        .fractal-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: 
-                radial-gradient(circle at 25% 25%, rgba(0, 168, 232, 0.03) 0%, transparent 50%),
-                radial-gradient(circle at 75% 75%, rgba(0, 126, 167, 0.03) 0%, transparent 50%),
-                repeating-linear-gradient(45deg, transparent, transparent 35px, rgba(0, 168, 232, 0.01) 35px, rgba(0, 168, 232, 0.01) 70px);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        .hero-content {
-            max-width: 1000px;
-            padding: 2rem;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .hero-greeting {
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            margin-bottom: 1rem;
-            font-weight: 300;
-            letter-spacing: 0.05em;
-        }
-
-        .hero-name {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 4rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 1rem;
-            line-height: 1.1;
-        }
-
-        .hero-description {
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 300;
-        }
-
-        .hero-description strong {
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-
-        /* Fractal Canvas */
-        .fractal-canvas-container {
-            margin: 3rem 0;
-            display: flex;
-            justify-content: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        #fractalCanvas {
-            max-width: 100%;
-            height: 400px;
-            border-radius: 20px;
-            box-shadow: 0 20px 60px rgba(0, 168, 232, 0.15);
-            background: white;
-        }
-
-        /* Capabilities Section */
-        .capabilities {
-            padding: 5rem 2rem;
-            background: var(--bg-secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .capabilities::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: repeating-radial-gradient(circle at 20% 80%, transparent 0, transparent 40px, rgba(0, 168, 232, 0.02) 40px, rgba(0, 168, 232, 0.02) 80px);
-            pointer-events: none;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            position: relative;
-            z-index: 10;
-        }
-
-        .section-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            font-weight: 700;
-            text-align: center;
-            margin-bottom: 3rem;
-            color: var(--text-primary);
-        }
-
-        .capabilities-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .capability-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(0, 168, 232, 0.1);
-        }
-
-        .capability-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 24px rgba(0, 168, 232, 0.15);
-        }
-
-        .capability-icon {
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .capability-icon i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
-        .capability-title {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 600;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .capability-description {
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* Technology Section */
-        .technology {
-            padding: 5rem 2rem;
-            background: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .technology::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: 
-                conic-gradient(from 45deg at 10% 90%, rgba(0, 168, 232, 0.02) 0deg, transparent 90deg, transparent 270deg, rgba(0, 168, 232, 0.02) 360deg),
-                conic-gradient(from 225deg at 90% 10%, rgba(0, 126, 167, 0.02) 0deg, transparent 90deg, transparent 270deg, rgba(0, 126, 167, 0.02) 360deg);
-            pointer-events: none;
-        }
-
-        .tech-content {
-            max-width: 800px;
-            margin: 0 auto;
-            text-align: center;
-            position: relative;
-            z-index: 10;
-        }
-
-        .tech-content h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--text-primary);
-        }
-
-        .tech-content p {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 4rem 2rem;
-            background: var(--bg-secondary);
-            text-align: center;
-        }
-
-        .contact h2 {
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            color: var(--text-primary);
-        }
-
-        .contact p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .contact-buttons {
-            display: flex;
-            gap: 1rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 0.75rem 2rem;
-            border: none;
-            border-radius: 50px;
-            font-weight: 500;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            cursor: pointer;
-            font-size: 0.95rem;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            box-shadow: 0 4px 15px rgba(0, 168, 232, 0.3);
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 168, 232, 0.4);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--primary-color);
-            border: 2px solid var(--primary-color);
-        }
-
-        .btn-secondary:hover {
-            background: var(--primary-color);
-            color: white;
-            transform: translateY(-2px);
-        }
-
-        /* Footer */
-        footer {
-            background: var(--text-primary);
-            color: white;
-            padding: 2rem;
-            text-align: center;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 2rem;
-            margin-bottom: 1rem;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: rgba(255, 255, 255, 0.7);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .footer-links a:hover {
-            color: var(--primary-color);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .mobile-menu {
-                display: block;
-            }
-
-            .hero-name {
-                font-size: 2.5rem;
-            }
-
-            .hero-description {
-                font-size: 1.2rem;
-            }
-
-            .nav-links.active {
-                display: flex;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.98);
-                padding: 1rem;
-                box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            }
-
-            .capabilities-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* Animations */
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .floating {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        /* Fade in animation */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 0.8s ease, transform 0.8s ease;
-        }
-
-        .fade-in.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ========================================
-           ROTATING TEXT ANIMATION EXPLANATION
-           ======================================== */
-        
-        /* Main container for the rotating text */
-        .cd-headline {
-            font-size: inherit;
-            line-height: inherit;
-        }
-
-        /* 
-         Wrapper that positions all words in the same spot
-         - relative positioning creates a positioning context
-         - inline-block allows it to flow with text
-        */
-        .cd-words-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        /* 
-         Each word element 
-         - absolute positioning stacks all words on top of each other
-         - b tag used for semantic bold text styling
-        */
-        .cd-words-wrapper b {
-            display: inline-block;
-            position: absolute;
-            top: 0;
-        }
-
-        /* 
-         The currently visible word
-         - position: relative takes it out of absolute stacking
-         - makes it part of normal document flow
-        */
-        .cd-words-wrapper b.is-visible {
-            position: relative;
-        }
-
-        /* 
-         3D perspective for the rotation effect
-         - creates depth for the X-axis rotation
-         - 300px gives a moderate 3D effect
-        */
-        .cd-headline.rotate-1 .cd-words-wrapper {
-            perspective: 300px;
-        }
-
-        /* 
-         Default state for all rotating words
-         - starts invisible and rotated 180° (upside down)
-         - transform-origin at bottom center for realistic flip
-        */
-        .cd-headline.rotate-1 b {
-            opacity: 0;
-            transform-origin: 50% 100%;
-            transform: rotateX(180deg);
-            animation: cd-rotate-1-in 1.2s;
-        }
-
-        /* 
-         The word currently being shown
-         - fully visible and upright (0° rotation)
-         - plays the "out" animation when it's time to switch
-        */
-        .cd-headline.rotate-1 b.is-visible {
-            opacity: 1;
-            transform: rotateX(0deg);
-            animation: cd-rotate-1-out 1.2s;
-        }
-
-        /* 
-         Words that are not currently visible
-         - invisible and upside down, waiting to be shown
-        */
-        .cd-headline.rotate-1 b.is-hidden {
-            opacity: 0;
-            transform: rotateX(180deg);
-        }
-
-        /* ========================================
-           ANIMATION KEYFRAMES EXPLANATION
-           ======================================== */
-
-        /* 
-         Word rotates IN animation (180° → 0°)
-         - Starts upside down and invisible
-         - Rotates through 120°, 60°, to 0° (upright)
-         - Fades in during rotation
-        */
-        @keyframes cd-rotate-1-in {
-            0% {
-                opacity: 0;
-                transform: rotateX(180deg);
-            }
-            35% {
-                opacity: 0;
-                transform: rotateX(120deg);
-            }
-            65% {
-                opacity: 0;
-                transform: rotateX(60deg);
-            }
-            100% {
-                opacity: 1;
-                transform: rotateX(0deg);
-            }
-        }
-
-        /* 
-         Word rotates OUT animation (0° → -180°)
-         - Starts upright and visible
-         - Rotates backward through -60°, -120°, to -180°
-         - Fades out during rotation
-        */
-        @keyframes cd-rotate-1-out {
-            0% {
-                opacity: 1;
-                transform: rotateX(0deg);
-            }
-            35% {
-                opacity: 1;
-                transform: rotateX(-60deg);
-            }
-            65% {
-                opacity: 0;
-                transform: rotateX(-120deg);
-            }
-            100% {
-                opacity: 0;
-                transform: rotateX(-180deg);
-            }
-        }
-
-        .cd-words-wrapper {
-            display: inline-block;
-            position: relative;
-        }
-
-        .cd-words-wrapper b {
-            display: inline-block;
-            position: absolute;
-            white-space: nowrap;
-            left: 0;
-            top: 0;
-        }
-
-        .cd-words-wrapper b.is-visible {
-            position: relative;
-        }
-
-        .cd-headline.rotate-1 .cd-words-wrapper {
-            perspective: 300px;
-        }
-
-        .cd-headline.rotate-1 b {
-            opacity: 0;
-            transform-origin: 50% 100%;
-            transform: rotateX(180deg);
-            animation: cd-rotate-1-in 1.2s;
-        }
-
-        .cd-headline.rotate-1 b.is-visible {
-            opacity: 1;
-            transform: rotateX(0deg);
-            animation: cd-rotate-1-out 1.2s;
-        }
-
-        .cd-headline.rotate-1 b.is-hidden {
-            opacity: 0;
-            transform: rotateX(180deg);
-        }
-
-        @keyframes cd-rotate-1-in {
-            0% {
-                opacity: 0;
-                transform: rotateX(180deg);
-            }
-            35% {
-                opacity: 0;
-                transform: rotateX(120deg);
-            }
-            65% {
-                opacity: 0;
-                transform: rotateX(60deg);
-            }
-            100% {
-                opacity: 1;
-                transform: rotateX(0deg);
-            }
-        }
-
-        @keyframes cd-rotate-1-out {
-            0% {
-                opacity: 1;
-                transform: rotateX(0deg);
-            }
-            35% {
-                opacity: 1;
-                transform: rotateX(-60deg);
-            }
-            65% {
-                opacity: 0;
-                transform: rotateX(-120deg);
-            }
-            100% {
-                opacity: 0;
-                transform: rotateX(-180deg);
-            }
-        }
-    </style>
+    <title>Isomera - Molecular Glue Design Tools</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Video Background -->
+    <div class="video-background">
+        <video autoplay muted loop playsinline>
+            <source src="/Users/hypatia42/isomera/EXP22_interlocking_gears/animation.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
+    </div>
+
     <!-- Navigation -->
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">Isomera</a>
-            <ul class="nav-links" id="navLinks">
-                <li><a href="#" class="active">About</a></li>
-                <li><a href="#capabilities">Capabilities</a></li>
-                <li><a href="#technology">Technology</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-            <button class="mobile-menu" id="mobileMenu">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </nav>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <canvas class="fractal-background" id="bgFractal"></canvas>
-        <div class="fractal-overlay"></div>
-        
-        <div class="hero-content fade-in">
-            <div class="hero-greeting">Welcome to the future of drug discovery</div>
-            <h1 class="hero-name">Isomera</h1>
-            <p class="hero-description">
-                I am <span class="cd-headline rotate-1">
-                    <span class="cd-words-wrapper">
-                        <b class="is-visible">an AI Computational Chemist</b>
-                        <b>a Molecular Architect</b>
-                        <b>a Drug Discovery Accelerator</b>
-                        <b>a Fractal Pattern Analyzer</b>
-                        <b>a Molecular Intelligence System</b>
-                    </span>
-                </span>
-            </p>
-            
-            <div class="fractal-canvas-container floating">
-                <canvas id="fractalCanvas"></canvas>
+    <header class="nav-container">
+        <nav class="navbar">
+            <div class="nav-brand">Isomera</div>
+            <div class="nav-menu" id="nav-menu">
+                <a href="#home" class="nav-link">Home</a>
+                <a href="#technology" class="nav-link">Technology</a>
+                <a href="#approach" class="nav-link">Approach</a>
+                <a href="#about" class="nav-link">About</a>
+                <div class="nav-toggle" id="nav-toggle">☰</div>
             </div>
-        </div>
-    </section>
+        </nav>
+    </header>
 
-    <!-- Capabilities Section -->
-    <section class="capabilities" id="capabilities">
-        <div class="container">
-            <h2 class="section-title fade-in">Revolutionary Capabilities</h2>
-            <div class="capabilities-grid">
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-cube"></i>
-                    </div>
-                    <h3 class="capability-title">Simplified 3D Model Building</h3>
-                    <p class="capability-description">
-                        Automating the construction of simplified three-dimensional molecular models that computational chemists traditionally build mentally, enabling scalable reasoning and design.
-                    </p>
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Hero Section -->
+        <section id="home" class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="title-line">Isomera</span>
+                    <span class="title-subtitle">Molecular Glue Design Tools</span>
+                </h1>
+                <div class="hero-description">
+                    <p>We design <strong>computational tools</strong> that harness <strong>complex molecular movements</strong> to engineer next-generation <strong>molecular glues</strong></p>
                 </div>
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-brain"></i>
-                    </div>
-                    <h3 class="capability-title">Expert-Level Reasoning</h3>
-                    <p class="capability-description">
-                        Replicating the intuitive reasoning process of industry computational chemists to guide molecular design based on computational insights and experimental patterns.
-                    </p>
-                </div>
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-link"></i>
-                    </div>
-                    <h3 class="capability-title">Integrated Docking Analysis</h3>
-                    <p class="capability-description">
-                        Combining molecular docking results with 3D model insights to predict molecular interactions and guide rational drug design decisions.
-                    </p>
-                </div>
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-bolt"></i>
-                    </div>
-                    <h3 class="capability-title">Scaled Drug Discovery</h3>
-                    <p class="capability-description">
-                        Automating processes that traditionally required expert chemist intuition, dramatically scaling the pace and scope of pharmaceutical research.
-                    </p>
-                </div>
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-chart-line"></i>
-                    </div>
-                    <h3 class="capability-title">Computational-Experimental Integration</h3>
-                    <p class="capability-description">
-                        Seamlessly blending computational simulations with experimental data to create comprehensive molecular understanding and predictive models.
-                    </p>
-                </div>
-                <div class="capability-card fade-in">
-                    <div class="capability-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3 class="capability-title">Industry-Standard Validation</h3>
-                    <p class="capability-description">
-                        Validating predictions against real-world computational chemistry workflows and experimental outcomes to ensure pharmaceutical-grade reliability.
-                    </p>
+                <div class="hero-cta">
+                    <a href="#technology" class="cta-button">Explore Our Technology</a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Technology Section -->
-    <section class="technology" id="technology">
-        <div class="tech-content fade-in">
-            <h2>AI Computational Chemistry Platform</h2>
-            <p>
-                Our AI computational chemist replicates the cognitive process that industry experts use to build simplified three-dimensional models in their minds. By learning from how experienced computational chemists visualize and reason about molecular structures, our system automates this intuitive process to guide rational drug design.
-            </p>
-            <p>
-                Computational chemists in industry rely on their ability to construct mental models that integrate computational simulations, molecular docking results, and experimental data to make informed design decisions. Isomera's AI agents have been trained to perform this same reasoning process, building simplified 3D representations that capture the essential features governing molecular behavior and interactions.
-            </p>
-            <p>
-                This breakthrough technology scales the expertise that traditionally required years of specialized training, allowing pharmaceutical companies to accelerate their drug discovery pipelines by deploying AI computational chemists that can reason about molecular design with the same depth and intuition as human experts, but at unprecedented speed and scale.
-            </p>
-        </div>
-    </section>
+        <!-- Technology Section -->
+        <section id="technology" class="technology">
+            <div class="container">
+                <h2 class="section-title">Our Innovation</h2>
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <div class="tech-icon">⚙️</div>
+                        <h3>Complex Movement Analysis</h3>
+                        <p>We study how interlocking molecular gears move relative to each other, unlocking new mechanisms for drug design</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">🧬</div>
+                        <h3>Molecular Glue Engineering</h3>
+                        <p>Design tools that create novel protein-protein interactions through precise molecular positioning</p>
+                    </div>
+                    <div class="tech-card">
+                        <div class="tech-icon">💻</div>
+                        <h3>Computational Design Platform</h3>
+                        <p>Advanced algorithms that simulate and optimize complex molecular machinery for therapeutic applications</p>
+                    </div>
+                </div>
+            </div>
+        </section>
 
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <h2>Transform Your Drug Discovery Process</h2>
-        <p>
-            Join leading pharmaceutical companies and research institutions leveraging Isomera's AI computational chemist to accelerate breakthrough discoveries and bring life-saving treatments to market faster.
-        </p>
-        <div class="contact-buttons">
-            <a href="mailto:info@isomera.com" class="btn btn-primary">
-                <i class="fas fa-envelope"></i> Get Started
-            </a>
-            <a href="#" class="btn btn-secondary">
-                <i class="fas fa-calendar"></i> Schedule Demo
-            </a>
-        </div>
-    </section>
+        <!-- Approach Section -->
+        <section id="approach" class="approach">
+            <div class="container">
+                <h2 class="section-title">Our Approach</h2>
+                <div class="approach-content">
+                    <div class="approach-text">
+                        <h3>Inspired by Mechanical Precision</h3>
+                        <p>Just as precisely engineered gears work together to create complex motion, we design molecular systems that move in harmony to achieve specific biological functions. Our tools analyze the intricate dance of molecules, identifying optimal configurations that create strong, selective molecular glues.</p>
+                        <div class="approach-features">
+                            <div class="feature">
+                                <span class="feature-icon">🔄</span>
+                                <span>Dynamic Movement Modeling</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">🎯</span>
+                                <span>Precise Molecular Targeting</span>
+                            </div>
+                            <div class="feature">
+                                <span class="feature-icon">⚡</span>
+                                <span>Rapid Design Optimization</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="approach-visual">
+                        <div class="molecular-visual">
+                            <div class="gear-1"></div>
+                            <div class="gear-2"></div>
+                            <div class="gear-3"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about">
+            <div class="container">
+                <h2 class="section-title">About Isomera</h2>
+                <div class="about-content">
+                    <p>Isomera is at the forefront of computational drug design, pioneering new approaches to molecular glue development. By combining insights from mechanical engineering with cutting-edge molecular biology, we're creating the next generation of therapeutic design tools.</p>
+                    <div class="stats">
+                        <div class="stat">
+                            <div class="stat-number">10^6</div>
+                            <div class="stat-label">Molecular Configurations Analyzed</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">100%</div>
+                            <div class="stat-label">Precision Engineering</div>
+                        </div>
+                        <div class="stat">
+                            <div class="stat-number">∞</div>
+                            <div class="stat-label">Design Possibilities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
 
     <!-- Footer -->
-    <footer>
-        <div class="footer-content">
-            <div class="footer-links">
-                <a href="#">About</a>
-                <a href="#capabilities">Capabilities</a>
-                <a href="#technology">Technology</a>
-                <a href="#contact">Contact</a>
-            </div>
-            <p>&copy; 2024 Isomera. AI Computational Chemistry for Next-Generation Drug Discovery.</p>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2026 Isomera. Engineering molecular solutions through complex movement analysis.</p>
         </div>
     </footer>
 
-    <script>
-        // Mobile menu toggle
-        const mobileMenu = document.getElementById('mobileMenu');
-        const navLinks = document.getElementById('navLinks');
-
-        mobileMenu.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-        });
-
-        // Smooth scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({ behavior: 'smooth' });
-                    navLinks.classList.remove('active');
-                }
-            });
-        });
-
-        // Background fractal animation
-        const bgFractal = document.getElementById('bgFractal');
-        const bgCtx = bgFractal.getContext('2d');
-
-        function drawSierpinskiTriangle(ctx, x, y, size, depth, time) {
-            if (depth === 0) {
-                ctx.beginPath();
-                ctx.moveTo(x, y);
-                ctx.lineTo(x + size, y);
-                ctx.lineTo(x + size/2, y - size * 0.866);
-                ctx.closePath();
-                
-                const opacity = 0.1 + Math.sin(time + depth) * 0.05;
-                ctx.fillStyle = `rgba(0, 168, 232, ${opacity})`;
-                ctx.fill();
-                return;
-            }
-            
-            const halfSize = size / 2;
-            drawSierpinskiTriangle(ctx, x, y, halfSize, depth - 1, time);
-            drawSierpinskiTriangle(ctx, x + halfSize, y, halfSize, depth - 1, time);
-            drawSierpinskiTriangle(ctx, x + halfSize/2, y - halfSize * 0.866, halfSize, depth - 1, time);
-        }
-
-        function drawKochSnowflake(ctx, x, y, size, depth, time) {
-            if (depth === 0) {
-                ctx.beginPath();
-                ctx.arc(x, y, size, 0, Math.PI * 2);
-                ctx.fillStyle = `rgba(0, 126, 167, ${0.08 + Math.sin(time * 3) * 0.03})`;
-                ctx.fill();
-                return;
-            }
-            
-            const newSize = size * 0.4;
-            for (let i = 0; i < 6; i++) {
-                const angle = (i * Math.PI / 3) + time;
-                const newX = x + size * Math.cos(angle);
-                const newY = y + size * Math.sin(angle);
-                drawKochSnowflake(ctx, newX, newY, newSize, depth - 1, time);
-            }
-        }
-
-        function drawBackgroundFractal() {
-            const width = bgFractal.width = window.innerWidth;
-            const height = bgFractal.height = window.innerHeight;
-            
-            bgCtx.clearRect(0, 0, width, height);
-            
-            const time = Date.now() * 0.0005;
-            
-            // Draw Sierpinski triangles
-            drawSierpinskiTriangle(bgCtx, width * 0.15, height * 0.7, Math.min(width, height) * 0.12, 3, time);
-            drawSierpinskiTriangle(bgCtx, width * 0.75, height * 0.25, Math.min(width, height) * 0.1, 2, time + 1);
-            
-            // Draw Koch snowflakes
-            drawKochSnowflake(bgCtx, width * 0.5, height * 0.3, Math.min(width, height) * 0.03, 2, time);
-            drawKochSnowflake(bgCtx, width * 0.2, height * 0.15, Math.min(width, height) * 0.02, 1, time + 1.5);
-            drawKochSnowflake(bgCtx, width * 0.85, height * 0.8, Math.min(width, height) * 0.025, 2, time + 2);
-            
-            // Subtle animated dots
-            for (let i = 0; i < 15; i++) {
-                const x = (Math.sin(time * 0.5 + i * 0.7) + 1) * width / 2;
-                const y = (Math.cos(time * 0.3 + i * 1.1) + 1) * height / 2;
-                const radius = 1.5 + Math.sin(time * 2 + i) * 0.8;
-                
-                bgCtx.beginPath();
-                bgCtx.arc(x, y, radius, 0, Math.PI * 2);
-                bgCtx.fillStyle = `rgba(0, 168, 232, ${0.06 + Math.sin(time * 3 + i) * 0.02})`;
-                bgCtx.fill();
-            }
-            
-            requestAnimationFrame(drawBackgroundFractal);
-        }
-
-        // Main fractal visualization
-        const fractalCanvas = document.getElementById('fractalCanvas');
-        const fractalCtx = fractalCanvas.getContext('2d');
-
-        function drawMolecularFractal() {
-            const width = fractalCanvas.width = fractalCanvas.offsetWidth;
-            const height = fractalCanvas.height = 400;
-            
-            fractalCtx.clearRect(0, 0, width, height);
-            
-            const time = Date.now() * 0.0008;
-            const centerX = width / 2;
-            const centerY = height / 2;
-            
-            // Draw central molecular structure with fractal patterns
-            function drawMolecule(x, y, radius, depth, angleOffset) {
-                if (depth === 0) return;
-                
-                // Central atom
-                fractalCtx.beginPath();
-                fractalCtx.arc(x, y, radius, 0, Math.PI * 2);
-                const gradient = fractalCtx.createRadialGradient(x, y, 0, x, y, radius);
-                gradient.addColorStop(0, 'rgba(0, 168, 232, 0.8)');
-                gradient.addColorStop(1, 'rgba(0, 126, 167, 0.4)');
-                fractalCtx.fillStyle = gradient;
-                fractalCtx.fill();
-                
-                // Draw branches
-                for (let i = 0; i < 6; i++) {
-                    const angle = (i * Math.PI / 3) + angleOffset + Math.sin(time + depth) * 0.1;
-                    const newX = x + Math.cos(angle) * radius * 2.5;
-                    const newY = y + Math.sin(angle) * radius * 2.5;
-                    
-                    // Connection line
-                    fractalCtx.strokeStyle = `rgba(0, 168, 232, ${0.4 - depth * 0.05})`;
-                    fractalCtx.lineWidth = 2 - depth * 0.2;
-                    fractalCtx.beginPath();
-                    fractalCtx.moveTo(x, y);
-                    fractalCtx.lineTo(newX, newY);
-                    fractalCtx.stroke();
-                    
-                    // Recursive call
-                    drawMolecule(newX, newY, radius * 0.6, depth - 1, angleOffset + i * 0.5);
-                }
-            }
-            
-            drawMolecule(centerX, centerY, 15, 4, time);
-            
-            // Add orbital rings
-            for (let i = 0; i < 3; i++) {
-                const ringRadius = 80 + i * 40 + Math.sin(time + i) * 10;
-                fractalCtx.strokeStyle = `rgba(0, 126, 167, ${0.2 - i * 0.05})`;
-                fractalCtx.lineWidth = 1;
-                fractalCtx.beginPath();
-                fractalCtx.arc(centerX, centerY, ringRadius, 0, Math.PI * 2);
-                fractalCtx.stroke();
-            }
-            
-            requestAnimationFrame(drawMolecularFractal);
-        }
-
-        // ========================================
-        // ROTATING TEXT JAVASCRIPT EXPLANATION
-        // ========================================
-        
-        function initRotatingText() {
-            // Find all rotating text containers on the page
-            const headlines = document.querySelectorAll('.cd-headline');
-            
-            headlines.forEach(headline => {
-                // Get the wrapper that contains all the words
-                const wordsWrapper = headline.querySelector('.cd-words-wrapper');
-                // Get all the individual word elements (the <b> tags)
-                const words = wordsWrapper.querySelectorAll('b');
-                // Track which word is currently showing
-                let currentWordIndex = 0;
-                
-                // ========================================
-                // THE CORE WORD SWITCHING FUNCTION
-                // ========================================
-                function switchWord() {
-                    // Get the currently visible word
-                    const currentWord = words[currentWordIndex];
-                    // Calculate the next word (loop back to 0 if we're at the end)
-                    const nextWordIndex = currentWordIndex === words.length - 1 ? 0 : currentWordIndex + 1;
-                    const nextWord = words[nextWordIndex];
-                    
-                    // STEP 1: Make current word start rotating OUT
-                    // - Remove 'is-visible' (triggers rotate-out animation)
-                    // - Add 'is-hidden' (sets final state: invisible, upside down)
-                    currentWord.classList.remove('is-visible');
-                    currentWord.classList.add('is-hidden');
-                    
-                    // STEP 2: After a brief delay, make next word rotate IN
-                    // - 50ms delay ensures clean transition
-                    // - Remove 'is-hidden' (takes it out of final state)
-                    // - Add 'is-visible' (triggers rotate-in animation)
-                    setTimeout(() => {
-                        nextWord.classList.remove('is-hidden');
-                        nextWord.classList.add('is-visible');
-                    }, 50);
-                    
-                    // STEP 3: Update the tracker to the new current word
-                    currentWordIndex = nextWordIndex;
-                }
-                
-                // ========================================
-                // INITIALIZATION
-                // ========================================
-                
-                // Set up initial state: first word visible, others hidden
-                words[0].classList.add('is-visible');
-                for (let i = 1; i < words.length; i++) {
-                    words[i].classList.add('is-hidden');
-                }
-                
-                // Start the automatic rotation
-                // 3000ms = 3 seconds between word changes
-                setInterval(switchWord, 3000);
-            });
-        }
-
-        // Initialize animations
-        drawBackgroundFractal();
-        drawMolecularFractal();
-        initRotatingText();
-
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            drawBackgroundFractal();
-            drawMolecularFractal();
-        });
-
-        // Intersection Observer for fade-in animations
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const fadeElements = document.querySelectorAll('.fade-in');
-            fadeElements.forEach(el => {
-                observer.observe(el);
-            });
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', () => {
-            const nav = document.querySelector('nav');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 2px 10px rgba(0, 0, 0, 0.1)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>

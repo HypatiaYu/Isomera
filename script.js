@@ -1,4 +1,34 @@
-// Enhanced JavaScript for Isomera website
+// Navigation toggle functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const navToggle = document.getElementById('nav-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    
+    navToggle.addEventListener('click', function() {
+        navMenu.classList.toggle('active');
+    });
+
+    // Close mobile menu when clicking on a link
+    const navLinks = document.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            navMenu.classList.remove('active');
+        });
+    });
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
+});
 
 // Intersection Observer for scroll animations
 const observerOptions = {
@@ -6,141 +36,157 @@ const observerOptions = {
     rootMargin: '0px 0px -50px 0px'
 };
 
-const observer = new IntersectionObserver((entries) => {
+const observer = new IntersectionObserver(function(entries) {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
+            entry.target.style.opacity = '1';
+            entry.target.style.transform = 'translateY(0)';
         }
     });
 }, observerOptions);
 
-// Apply fade-in animation to elements
-document.addEventListener('DOMContentLoaded', () => {
-    const fadeElements = document.querySelectorAll('.capability-card, .tech-feature, .hero-text');
-    fadeElements.forEach(el => {
-        el.classList.add('fade-in');
+// Observe elements for animation
+document.addEventListener('DOMContentLoaded', function() {
+    const animateElements = document.querySelectorAll('.tech-card, .feature, .stat');
+    
+    animateElements.forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(30px)';
+        el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
         observer.observe(el);
     });
-
-    // Hide loader
-    setTimeout(() => {
-        const loader = document.querySelector('.loader');
-        if (loader) {
-            loader.classList.add('hidden');
-        }
-    }, 1500);
-
-    // Create floating particles
-    createParticles();
 });
 
-// Create molecular particles
-function createParticles() {
-    const hero = document.querySelector('.hero');
-    for (let i = 0; i < 15; i++) {
-        const particle = document.createElement('div');
-        particle.className = 'particle';
-        particle.style.left = Math.random() * 100 + '%';
-        particle.style.animationDelay = Math.random() * 10 + 's';
-        particle.style.fontSize = Math.random() * 10 + 10 + 'px';
-        particle.innerHTML = ['⚛', '🧬', '🔬', '⚗️'][Math.floor(Math.random() * 4)];
-        hero.appendChild(particle);
-    }
-}
-
-// Enhanced molecular interactions
-let mouseX = 0;
-let mouseY = 0;
-
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+// Parallax effect for hero section
+window.addEventListener('scroll', function() {
+    const scrolled = window.pageYOffset;
+    const heroContent = document.querySelector('.hero-content');
     
-    // Subtle parallax effect on molecules
-    const moleculeViz = document.querySelector('.molecular-viz');
-    if (moleculeViz) {
-        const rect = moleculeViz.getBoundingClientRect();
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        
-        const angleX = (mouseY - centerY) * 0.01;
-        const angleY = (mouseX - centerX) * 0.01;
-        
-        moleculeViz.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg)`;
+    if (heroContent && scrolled < window.innerHeight) {
+        heroContent.style.transform = `translateY(${scrolled * 0.3}px)`;
+        heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
     }
 });
 
-// Smooth reveal animations
-function revealOnScroll() {
-    const reveals = document.querySelectorAll('.reveal');
-    reveals.forEach(element => {
-        const windowHeight = window.innerHeight;
-        const elementTop = element.getBoundingClientRect().top;
-        const elementVisible = 150;
-        
-        if (elementTop < windowHeight - elementVisible) {
-            element.classList.add('active');
+// Dynamic gear animation speeds based on scroll
+let lastScrollY = window.scrollY;
+window.addEventListener('scroll', function() {
+    const scrollY = window.scrollY;
+    const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
+    
+    const gears = [
+        { element: document.querySelector('.gear-1'), baseSpeed: 8 },
+        { element: document.querySelector('.gear-2'), baseSpeed: 6, reverse: true },
+        { element: document.querySelector('.gear-3'), baseSpeed: 10 }
+    ];
+    
+    gears.forEach(gear => {
+        if (gear.element) {
+            const speedModifier = 1 + (scrollY / 1000);
+            const duration = gear.baseSpeed / speedModifier;
+            gear.element.style.animationDuration = `${duration}s`;
         }
     });
-}
-
-window.addEventListener('scroll', revealOnScroll);
-
-// Interactive molecule click handler
-document.getElementById('moleculeCanvas')?.addEventListener('click', function(e) {
-    const rect = this.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
     
-    // Create ripple effect
-    const ripple = document.createElement('div');
-    ripple.style.position = 'absolute';
-    ripple.style.left = x + 'px';
-    ripple.style.top = y + 'px';
-    ripple.style.width = '10px';
-    ripple.style.height = '10px';
-    ripple.style.background = 'rgba(0, 168, 232, 0.5)';
-    ripple.style.borderRadius = '50%';
-    ripple.style.transform = 'translate(-50%, -50%)';
-    ripple.style.pointerEvents = 'none';
-    ripple.style.animation = 'ripple 1s ease-out';
-    
-    this.appendChild(ripple);
-    
-    setTimeout(() => ripple.remove(), 1000);
+    lastScrollY = scrollY;
 });
 
-// Add ripple animation
-const style = document.createElement('style');
-style.textContent = `
-    @keyframes ripple {
-        to {
-            width: 100px;
-            height: 100px;
-            opacity: 0;
-        }
-    }
-`;
-document.head.appendChild(style);
-
-// Enhanced form interactions
-document.querySelectorAll('.btn').forEach(button => {
-    button.addEventListener('mouseenter', function() {
-        this.style.transform = 'translateY(-2px)';
+// Enhanced hover effects for tech cards
+document.querySelectorAll('.tech-card').forEach(card => {
+    card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-15px) scale(1.02)';
     });
     
-    button.addEventListener('mouseleave', function() {
+    card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+    });
+});
+
+// CTA button pulse effect
+const ctaButton = document.querySelector('.cta-button');
+if (ctaButton) {
+    setInterval(() => {
+        ctaButton.style.transform = 'scale(1.05)';
+        setTimeout(() => {
+            ctaButton.style.transform = 'scale(1)';
+        }, 200);
+    }, 3000);
+}
+
+// Navbar background opacity on scroll
+window.addEventListener('scroll', function() {
+    const navbar = document.querySelector('.nav-container');
+    const scrolled = window.pageYOffset;
+    
+    if (navbar) {
+        if (scrolled > 50) {
+            navbar.style.background = 'rgba(10, 10, 10, 0.95)';
+            navbar.style.backdropFilter = 'blur(15px)';
+        } else {
+            navbar.style.background = 'rgba(10, 10, 10, 0.7)';
+            navbar.style.backdropFilter = 'blur(10px)';
+        }
+    }
+});
+
+// Typing effect for hero title (optional enhancement)
+function typeWriter(element, text, speed = 100) {
+    let i = 0;
+    element.textContent = '';
+    
+    function type() {
+        if (i < text.length) {
+            element.textContent += text.charAt(i);
+            i++;
+            setTimeout(type, speed);
+        }
+    }
+    
+    type();
+}
+
+// Initialize typing effect when page loads
+document.addEventListener('DOMContentLoaded', function() {
+    const titleElement = document.querySelector('.title-line');
+    if (titleElement) {
+        // Uncomment below for typing effect on title
+        // typeWriter(titleElement, 'Isomera', 150);
+    }
+});
+
+// Video loading optimization - loop first 2 seconds
+document.addEventListener('DOMContentLoaded', function() {
+    const video = document.querySelector('.video-background video');
+    if (video) {
+        video.addEventListener('loadedmetadata', function() {
+            // Set video to loop only the first 2 seconds
+            video.currentTime = 0;
+            video.playbackRate = 0.8; // Slow down for better visual effect
+            
+            // Create a seamless loop of the first 2 seconds
+            video.addEventListener('timeupdate', function() {
+                if (video.currentTime >= 2) {
+                    video.currentTime = 0;
+                }
+            });
+        });
+        
+        // Ensure video plays
+        video.play().catch(function(error) {
+            console.log('Video autoplay failed:', error);
+        });
+    }
+});
+
+// Add glow effect to stats on hover
+document.querySelectorAll('.stat').forEach(stat => {
+    stat.addEventListener('mouseenter', function() {
+        this.style.boxShadow = '0 0 30px rgba(0, 255, 204, 0.5)';
+        this.style.transform = 'translateY(-5px)';
+    });
+    
+    stat.addEventListener('mouseleave', function() {
+        this.style.boxShadow = 'none';
         this.style.transform = 'translateY(0)';
-    });
-});
-
-// Dynamic year in footer
-document.addEventListener('DOMContentLoaded', () => {
-    const year = new Date().getFullYear();
-    const footerElements = document.querySelectorAll('footer p');
-    footerElements.forEach(el => {
-        if (el.textContent.includes('2024')) {
-            el.textContent = el.textContent.replace('2024', year);
-        }
     });
 });
