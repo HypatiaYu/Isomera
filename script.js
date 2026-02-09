@@ -68,23 +68,22 @@ window.addEventListener('scroll', function() {
     }
 });
 
-// Dynamic gear animation speeds based on scroll
+// Dynamic molecular animation based on scroll
 let lastScrollY = window.scrollY;
 window.addEventListener('scroll', function() {
     const scrollY = window.scrollY;
     const scrollDirection = scrollY > lastScrollY ? 'down' : 'up';
     
-    const gears = [
-        { element: document.querySelector('.gear-1'), baseSpeed: 8 },
-        { element: document.querySelector('.gear-2'), baseSpeed: 6, reverse: true },
-        { element: document.querySelector('.gear-3'), baseSpeed: 10 }
+    const molecules = [
+        { element: document.querySelector('.protein-1'), baseDuration: 3 },
+        { element: document.querySelector('.protein-2'), baseDuration: 3, delay: 1.5 }
     ];
     
-    gears.forEach(gear => {
-        if (gear.element) {
+    molecules.forEach(molecule => {
+        if (molecule.element) {
             const speedModifier = 1 + (scrollY / 1000);
-            const duration = gear.baseSpeed / speedModifier;
-            gear.element.style.animationDuration = `${duration}s`;
+            const duration = molecule.baseDuration / speedModifier;
+            molecule.element.style.animationDuration = `${duration}s`;
         }
     });
     
@@ -181,7 +180,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Add glow effect to stats on hover
 document.querySelectorAll('.stat').forEach(stat => {
     stat.addEventListener('mouseenter', function() {
-        this.style.boxShadow = '0 0 30px rgba(0, 255, 204, 0.5)';
+        this.style.boxShadow = '0 0 30px rgba(0, 204, 255, 0.5)';
         this.style.transform = 'translateY(-5px)';
     });
     
@@ -189,4 +188,26 @@ document.querySelectorAll('.stat').forEach(stat => {
         this.style.boxShadow = 'none';
         this.style.transform = 'translateY(0)';
     });
+});
+
+// Enhanced molecular glue interaction
+document.addEventListener('DOMContentLoaded', function() {
+    const molecularGlue = document.querySelector('.molecular-glue');
+    const protein1 = document.querySelector('.protein-1');
+    const protein2 = document.querySelector('.protein-2');
+    
+    if (molecularGlue && protein1 && protein2) {
+        // Create binding animation on hover
+        molecularGlue.addEventListener('mouseenter', function() {
+            protein1.style.transform = 'translateX(10px) scale(1.2)';
+            protein2.style.transform = 'translateX(-10px) scale(1.2)';
+            molecularGlue.style.width = '80px';
+        });
+        
+        molecularGlue.addEventListener('mouseleave', function() {
+            protein1.style.transform = 'translateX(0) scale(1)';
+            protein2.style.transform = 'translateX(0) scale(1)';
+            molecularGlue.style.width = '60px';
+        });
+    }
 });

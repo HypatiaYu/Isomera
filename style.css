@@ -43,11 +43,11 @@ body {
     width: 100%;
     height: 100%;
     background: linear-gradient(135deg, 
-        rgba(10, 10, 10, 0.9) 0%, 
-        rgba(20, 30, 60, 0.8) 25%, 
-        rgba(40, 60, 100, 0.7) 50%, 
-        rgba(20, 30, 60, 0.8) 75%, 
-        rgba(10, 10, 10, 0.9) 100%);
+        rgba(10, 10, 10, 0.95) 0%, 
+        rgba(45, 35, 55, 0.85) 25%, 
+        rgba(65, 50, 75, 0.8) 50%, 
+        rgba(45, 35, 55, 0.85) 75%, 
+        rgba(10, 10, 10, 0.95) 100%);
 }
 
 /* Navigation */
@@ -74,7 +74,7 @@ body {
 .nav-brand {
     font-size: 1.5rem;
     font-weight: bold;
-    background: linear-gradient(45deg, #4a9eff, #00ffcc);
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -95,7 +95,7 @@ body {
 }
 
 .nav-link:hover {
-    color: #4a9eff;
+    color: #9b59b6;
 }
 
 .nav-link::after {
@@ -105,7 +105,7 @@ body {
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #4a9eff, #00ffcc);
+    background: linear-gradient(90deg, #9b59b6, #8e44ad);
     transition: width 0.3s ease;
 }
 
@@ -149,7 +149,7 @@ body {
     display: block;
     font-size: 5rem;
     font-weight: bold;
-    background: linear-gradient(45deg, #ffffff, #4a9eff, #00ffcc);
+    background: linear-gradient(45deg, #ffffff, #9b59b6, #8e44ad);
     background-size: 200% auto;
     -webkit-background-clip: text;
     background-clip: text;
@@ -159,10 +159,12 @@ body {
 
 .title-subtitle {
     display: block;
-    font-size: 1.8rem;
-    color: #4a9eff;
+    font-size: 1.9rem;
+    color: #9b59b6;
     margin-top: 1rem;
-    font-weight: 300;
+    font-weight: 400;
+    text-shadow: 0 3px 6px rgba(0, 0, 0, 0.8), 0 0 10px rgba(0, 0, 0, 0.5);
+    letter-spacing: 0.3px;
 }
 
 .hero-description {
@@ -172,27 +174,32 @@ body {
 }
 
 .hero-description strong {
-    color: #00ffcc;
+    color: #8e44ad;
     font-weight: 600;
 }
 
 .cta-button {
     display: inline-block;
     padding: 1rem 2.5rem;
-    background: linear-gradient(45deg, #4a9eff, #00ffcc);
-    color: #0a0a0a;
+    background: linear-gradient(45deg, #8e44ad, #9b59b6);
+    color: #ffffff;
     text-decoration: none;
     border-radius: 50px;
-    font-weight: 600;
-    font-size: 1.1rem;
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
     transition: all 0.3s ease;
     position: relative;
     overflow: hidden;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6), 0 0 8px rgba(0, 0, 0, 0.4);
+    border: 2px solid rgba(255, 255, 255, 0.2);
 }
 
 .cta-button:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 30px rgba(74, 158, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(142, 68, 173, 0.4);
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
+    border-color: rgba(255, 255, 255, 0.3);
 }
 
 /* Container */
@@ -211,7 +218,7 @@ section {
     font-size: 3rem;
     text-align: center;
     margin-bottom: 3rem;
-    background: linear-gradient(45deg, #4a9eff, #00ffcc);
+    background: linear-gradient(45deg, #9b59b6, #8e44ad);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -219,7 +226,7 @@ section {
 
 /* Technology Section */
 .technology {
-    background: rgba(20, 30, 60, 0.2);
+    background: rgba(45, 35, 55, 0.2);
     backdrop-filter: blur(10px);
 }
 
@@ -243,7 +250,7 @@ section {
 .tech-card:hover {
     transform: translateY(-10px);
     background: rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 40px rgba(74, 158, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(155, 89, 182, 0.2);
 }
 
 .tech-icon {
@@ -255,7 +262,7 @@ section {
 .tech-card h3 {
     font-size: 1.5rem;
     margin-bottom: 1rem;
-    color: #4a9eff;
+    color: #9b59b6;
 }
 
 /* Approach Section */
@@ -269,7 +276,7 @@ section {
 
 .approach-text h3 {
     font-size: 2rem;
-    color: #4a9eff;
+    color: #9b59b6;
     margin-bottom: 1.5rem;
 }
 
@@ -294,7 +301,7 @@ section {
 
 .feature-icon {
     font-size: 1.5rem;
-    color: #00ffcc;
+    color: #8e44ad;
 }
 
 /* Molecular Visual */
@@ -307,37 +314,58 @@ section {
     justify-content: center;
 }
 
-.gear-1, .gear-2, .gear-3 {
+.protein-1, .protein-2 {
     position: absolute;
-    width: 120px;
-    height: 120px;
+    width: 100px;
+    height: 100px;
     border-radius: 50%;
-    border: 3px solid #4a9eff;
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.gear-1 {
-    background: rgba(74, 158, 255, 0.3);
-    animation: rotate 8s linear infinite;
+.protein-1 {
+    background: rgba(155, 89, 182, 0.3);
+    border: 3px solid #9b59b6;
+    animation: pulse 3s ease-in-out infinite;
 }
 
-.gear-2 {
-    background: rgba(0, 255, 204, 0.3);
-    left: 100px;
-    animation: rotate 6s linear infinite reverse;
-}
-
-.gear-3 {
-    background: rgba(255, 255, 255, 0.1);
+.protein-2 {
+    background: rgba(142, 68, 173, 0.3);
+    border: 3px solid #8e44ad;
     right: 50px;
-    animation: rotate 10s linear infinite;
+    animation: pulse 3s ease-in-out infinite 1.5s;
 }
 
-.gear-1::before, .gear-2::before, .gear-3::before {
-    content: '⚙️';
-    font-size: 3rem;
+.molecular-glue {
+    position: absolute;
+    width: 60px;
+    height: 20px;
+    background: linear-gradient(90deg, #9b59b6, #8e44ad);
+    border-radius: 10px;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    animation: glow 2s ease-in-out infinite;
+}
+
+.protein-1::before {
+    content: '🧬';
+    font-size: 2.5rem;
+}
+
+.protein-2::before {
+    content: '🔧';
+    font-size: 2.5rem;
+}
+
+.molecular-glue::before {
+    content: '🔗';
+    font-size: 1.2rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 /* About Section */
@@ -377,13 +405,13 @@ section {
 .stat-number {
     font-size: 2.5rem;
     font-weight: bold;
-    color: #00ffcc;
+    color: #8e44ad;
     margin-bottom: 0.5rem;
 }
 
 .stat-label {
     font-size: 1rem;
-    color: #4a9eff;
+    color: #9b59b6;
 }
 
 /* Footer */
@@ -415,12 +443,23 @@ section {
     }
 }
 
-@keyframes rotate {
-    from {
-        transform: rotate(0deg);
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        opacity: 0.8;
     }
-    to {
-        transform: rotate(360deg);
+    50% {
+        transform: scale(1.1);
+        opacity: 1;
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        box-shadow: 0 0 10px rgba(155, 89, 182, 0.5);
+    }
+    50% {
+        box-shadow: 0 0 20px rgba(142, 68, 173, 0.8);
     }
 }
 
@@ -471,11 +510,7 @@ section {
         height: 300px;
     }
 
-    .gear-2 {
-        left: 50px;
-    }
-
-    .gear-3 {
+    .protein-2 {
         right: 20px;
     }
 }
