@@ -7,10 +7,26 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- Audio Player with Autoplay -->
+    <audio id="backgroundMusic" autoplay loop>
+        <source src="music/Isomera.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <!-- Music Controls -->
+    <div class="music-controls">
+        <button id="musicToggle" class="music-btn" onclick="toggleMusic()">
+            <span id="musicIcon">🔊</span>
+        </button>
+        <div class="music-info">
+            <span>Isomera Soundtrack</span>
+        </div>
+    </div>
+
     <!-- Video Background -->
     <div class="video-background">
         <video autoplay muted loop playsinline>
-            <source src="/Users/hypatia42/isomera/EXP22_interlocking_gears/animation.mp4" type="video/mp4">
+            <source src="video/animation.mp4" type="video/mp4">
         </video>
         <div class="video-overlay"></div>
     </div>
@@ -136,6 +152,121 @@
         </div>
     </footer>
 
+    <script>
+        // Music Control Variables
+        let audioElement;
+        let isMusicPlaying = false;
+
+        // Initialize audio on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            audioElement = document.getElementById('backgroundMusic');
+            
+            // Try to autoplay music (modern browsers require user interaction)
+            const playMusic = () => {
+                audioElement.play().then(() => {
+                    isMusicPlaying = true;
+                    updateMusicIcon();
+                }).catch((error) => {
+                    console.log('Autoplay prevented. User interaction required.');
+                    isMusicPlaying = false;
+                    updateMusicIcon();
+                });
+            };
+
+            // Attempt autoplay
+            playMusic();
+
+            // Add user interaction listener to enable music
+            document.addEventListener('click', function() {
+                if (!isMusicPlaying) {
+                    playMusic();
+                }
+            }, { once: true });
+        });
+
+        // Toggle music function
+        function toggleMusic() {
+            if (isMusicPlaying) {
+                audioElement.pause();
+                isMusicPlaying = false;
+            } else {
+                audioElement.play();
+                isMusicPlaying = true;
+            }
+            updateMusicIcon();
+        }
+
+        // Update music icon
+        function updateMusicIcon() {
+            const musicIcon = document.getElementById('musicIcon');
+            musicIcon.textContent = isMusicPlaying ? '🔊' : '🔇';
+        }
+    </script>
+    
+    <style>
+        /* Music Controls Styles */
+        .music-controls {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            z-index: 1000;
+            background: rgba(74, 158, 255, 0.2);
+            padding: 10px 20px;
+            border-radius: 25px;
+            border: 1px solid rgba(74, 158, 255, 0.3);
+            backdrop-filter: blur(10px);
+        }
+
+        .music-btn {
+            background: linear-gradient(45deg, #4a9eff, #00ffcc);
+            border: none;
+            color: #0a0a0a;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .music-btn:hover {
+            transform: scale(1.1);
+            box-shadow: 0 0 20px rgba(74, 158, 255, 0.4);
+        }
+
+        .music-info {
+            color: #ffffff;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        /* Responsive adjustments for music controls */
+        @media (max-width: 768px) {
+            .music-controls {
+                top: 20px;
+                right: 20px;
+                padding: 8px 15px;
+                gap: 10px;
+            }
+
+            .music-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .music-info {
+                font-size: 0.8rem;
+            }
+        }
+    </style>
+    
     <script src="script.js"></script>
 </body>
 </html>
