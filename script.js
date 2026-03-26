@@ -153,24 +153,10 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Video loading optimization - loop first 2 seconds
+// Ensure video autoplays
 document.addEventListener('DOMContentLoaded', function() {
     const video = document.querySelector('.video-background video');
     if (video) {
-        video.addEventListener('loadedmetadata', function() {
-            // Set video to loop only the first 2 seconds
-            video.currentTime = 0;
-            video.playbackRate = 0.8; // Slow down for better visual effect
-            
-            // Create a seamless loop of the first 2 seconds
-            video.addEventListener('timeupdate', function() {
-                if (video.currentTime >= 2) {
-                    video.currentTime = 0;
-                }
-            });
-        });
-        
-        // Ensure video plays
         video.play().catch(function(error) {
             console.log('Video autoplay failed:', error);
         });
