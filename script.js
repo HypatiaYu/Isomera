@@ -149,7 +149,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const titleElement = document.querySelector('.title-line');
     if (titleElement) {
         // Uncomment below for typing effect on title
-        // typeWriter(titleElement, 'Isomera', 150);
+        // typeWriter(titleElement, 'Isomera Studio', 150);
     }
 });
 
