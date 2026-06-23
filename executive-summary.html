@@ -222,6 +222,45 @@
             border-color: #ffffff;
         }
 
+        /* Ragnarök image gallery */
+        .ragnarok-hero {
+            margin: 2rem 0 1rem;
+        }
+        .ragnarok-hero img {
+            width: 100%;
+            border-radius: 12px;
+            border: 1px solid rgba(155, 89, 182, 0.25);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+            background: rgba(255, 255, 255, 0.04);
+        }
+        .ragnarok-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.85rem;
+            margin: 1.5rem 0 1rem;
+        }
+        .ragnarok-grid figure {
+            margin: 0;
+        }
+        .ragnarok-grid img {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 1px solid rgba(155, 89, 182, 0.25);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+        .ragnarok-grid figcaption {
+            margin-top: 0.5rem;
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.65);
+            font-style: italic;
+            text-align: center;
+        }
+        @media (max-width: 640px) {
+            .ragnarok-grid { grid-template-columns: 1fr; }
+        }
+
         .doc-footer {
             text-align: center;
             margin-top: 5rem;
@@ -307,10 +346,10 @@
 
         <section class="doc-section">
             <h2>Origins</h2>
-            <p>The philosophy underlying Isomera Studio emerged from the work of its founder while learning to program at the Stanford AI Lab.</p>
-            <p>While studying artificial intelligence, she became interested in a simple question: why are artists able to develop such deep intuition about anatomy, biomechanics, structure, and motion simply by learning to draw?</p>
-            <p>Artists do not merely reproduce images. Through observation and practice, they develop an understanding of how forms occupy space and how structure gives rise to function. Drawing becomes a mechanism for understanding complex systems.</p>
-            <p>This observation inspired the invention of a molecular generation technology based on the idea that artificial intelligence could learn molecular structures in three dimensions through a process inspired by artistic practice. Rather than treating molecules solely as mathematical objects to be optimized, the system was designed to learn how molecular structures occupy space, interact with one another, and give rise to biological function.</p>
+            <p>The philosophy underlying Isomera Studio emerged from the work of its founder while teaching herself to program at the Stanford AI Lab.</p>
+            <p>Working with the molecular design software of the day, she noticed something that bothered her: most of these tools didn't really understand <em>mechanics</em>. They could shuffle atoms around and optimize numbers, but they had no feel for how a molecule actually moves, fits, or holds itself together in three dimensions.</p>
+            <p>That observation led to a question. When an artist learns to draw the human hand, they don't just memorize what hands look like — through observation and practice, they build an intuition for the underlying structure and biomechanics: how the bones stack, how the tendons pull, how the whole thing moves. Drawing becomes a way of <em>understanding</em>, not just depicting.</p>
+            <p>What if you could teach software to learn the same way artists do? Not to optimize molecules as abstract math, but to <em>draw</em> them — to develop an intuition for how molecular structures occupy space, interact with one another, and give rise to biological function. That question became the seed of a new kind of molecular generation technology.</p>
             <p>The resulting technology led to a publication at a machine learning conference, an invited presentation at the Dana-Farber Cancer Institute, and a peer-reviewed publication in ACS Central Science that has been viewed more than 21,000 times.</p>
 
             <figure class="frame-figure">
@@ -351,9 +390,33 @@
         <section class="doc-section" id="ragnarok-section">
             <h2>Ragnarök: Severance of the Body from the Mind</h2>
             <p>A second expression of Isomera Studio's mission is <em>Ragnarök: Severance of the Body from the Mind</em>, an ongoing large-scale public artwork exploring mental illness, traumatic brain injury, consciousness, and healing.</p>
-            <p>Currently under construction, the installation is built from reclaimed windows and doors transformed into fractal Sierpiński-triangle structures. Within each window pane is a hand-drawn image of a psychedelic compound. Each pane will ultimately be transformed into an infinity mirror, creating a visual metaphor for consciousness and the hidden dimensions of the human mind.</p>
+
+            <figure class="ragnarok-hero">
+                <img src="images/ragnarok-scale.jpg" alt="Ragnarök installation — original concept diagram showing the Sierpiński-triangle art piece (2' across), pentagonal base (3'), with 5'5&quot; human for reference">
+                <figcaption style="text-align:center; margin-top:0.6rem; font-size:0.9rem; color:rgba(255,255,255,0.65); font-style:italic;">The <strong>original concept design</strong>: a deeply nested fractal Sierpiński-triangle art piece atop a pentagonal base, shown at scale against a 5'5" human reference. As fabrication progressed, the design was simplified to meet real-world structural and material constraints.</figcaption>
+            </figure>
+
+            <p>The installation is built from reclaimed windows and doors — scavenged from <a href="https://urbanore.com/" target="_blank" rel="noopener" style="color:#9b59b6; text-decoration:underline;">Urban Ore</a> in Berkeley — and transformed into fractal Sierpiński-triangle structures. Within each window pane is a hand-drawn image of a psychedelic compound. Each pane will ultimately be transformed into an infinity mirror, creating a visual metaphor for consciousness and the hidden dimensions of the human mind.</p>
+
+            <p>The image above is the <em>original</em> design. We ran into design constraints while deconstructing the windows — it turned out to be much more complicated than expected — so the built form is a simplified version of the concept. Having to improvise and adapt on the fly is part of the creative process, and it is exactly the part we teach.</p>
+
+            <div class="ragnarok-grid">
+                <figure>
+                    <img src="images/ragnarok-construction.jpg" alt="Reclaimed window frames assembled into simplified Sierpiński-triangle structures in the workshop">
+                    <figcaption>The simplified, as-built fractal frames — adapted to the weight and geometry of the reclaimed materials.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ragnarok-builders.jpg" alt="Two community builders assembling the fractal frames on the workshop floor">
+                    <figcaption>Community builders fabricating the installation together.</figcaption>
+                </figure>
+                <figure>
+                    <img src="images/ragnarok-molecule-pane.jpg" alt="Triangular window pane with a hand-drawn psychedelic molecule on the glass">
+                    <figcaption>Hand-drawn molecules on the glass — psychedelic compounds as windows into consciousness.</figcaption>
+                </figure>
+            </div>
+
             <p>The installation explores mental illness as a separation of the mind from the body and from the world around it. The molecular imagery serves as a metaphor for emerging therapeutic approaches that may help restore these connections, portraying these compounds as opening windows into consciousness.</p>
-            <p>Equally important is the process through which the installation is built. Ragnarök brings together tradespeople, fabricators, carpenters, welders, engineers, scientists, artists, project managers, and community members to work toward a common goal. In doing so, it functions as a workforce-development platform that teaches technical skills, collaboration, leadership, and creative problem solving.</p>
+            <p>Equally important is the process through which the installation is built. Ragnarök brings together tradespeople, fabricators, carpenters, welders, engineers, scientists, artists, project managers, and community members to work toward a common goal. In doing so, it functions as a workforce-development platform that teaches technical skills, collaboration, leadership, and creative problem solving — including the iterative discipline of redesigning under real-world constraints.</p>
         </section>
 
         <section class="doc-section">
